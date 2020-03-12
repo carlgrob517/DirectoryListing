@@ -1,0 +1,730 @@
+<!doctype html>
+<!--[if IE 6 ]><html lang="en-us" class="ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en-us" class="ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en-us" class="ie8"> <![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!-->
+<html lang="en-us">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Listar - mobile React Native directory listing app template</title>
+
+	<meta name="description" content="A Perfect HTML5 Template for your site with unlimited options">
+	<meta name="author" content="vor">
+	<meta name="copyright" content="vor">
+	<meta name="generator" content="Documenter v1.0 http://rxa.li/documenter">
+	<meta name="date" content="2015-01-05T00:00:00+02:00">
+
+	<link rel="stylesheet" href="assets/css/documenter_style.css" media="all">
+	<link type="text/css" rel="stylesheet" href="assets/css/SyntaxHighlighter.css">
+	</link>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,700,800'
+		rel='stylesheet' type='text/css'>
+	<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/jquery.scrollTo.js"></script>
+	<script src="assets/js/jquery.easing.js"></script>
+
+	<script>document.createElement('section'); var duration = '500', easing = 'swing';</script>
+	<script src="assets/js/script.js"></script>
+
+	<style>
+		html {
+			background-color: #EEEEEE;
+			color: #383838;
+		}
+
+		::-moz-selection {
+			background: #333636;
+			color: #00DFFC;
+		}
+
+		::selection {
+			background: #333636;
+			color: #00DFFC;
+		}
+
+		#documenter_sidebar #documenter_logo {
+			background-image: url();
+		}
+
+		a {
+			color: #008C9E;
+		}
+
+		.btn {
+			border-radius: 3px;
+		}
+
+		.btn-primary {
+			background-image: -moz-linear-gradient(top, #008C9E, #006673);
+			background-image: -ms-linear-gradient(top, #008C9E, #006673);
+			background-image: -webkit-gradient(linear, 0 0, 0 008C9E%, from(#343838), to(#006673));
+			background-image: -webkit-linear-gradient(top, #008C9E, #006673);
+			background-image: -o-linear-gradient(top, #008C9E, #006673);
+			background-image: linear-gradient(top, #008C9E, #006673);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#008C9E', endColorstr='#006673', GradientType=0);
+			border-color: #006673 #006673 #bfbfbf;
+			color: #FFFFFF;
+		}
+
+		.btn-primary:hover,
+		.btn-primary:active,
+		.btn-primary.active,
+		.btn-primary.disabled,
+		.btn-primary[disabled] {
+			border-color: #008C9E #008C9E #bfbfbf;
+			background-color: #006673;
+		}
+
+		hr {
+			border-top: 1px solid #D4D4D4;
+			border-bottom: 1px solid #FFFFFF;
+		}
+
+		#documenter_sidebar,
+		#documenter_sidebar ul a {
+			background-color: #343838;
+			color: #FFFFFF;
+		}
+
+		#documenter_sidebar ul a {
+			-webkit-text-shadow: 1px 1px 0px #494F4F;
+			-moz-text-shadow: 1px 1px 0px #494F4F;
+			text-shadow: 1px 1px 0px #494F4F;
+		}
+
+		#documenter_sidebar ul {
+			border-top: 1px solid #212424;
+		}
+
+		#documenter_sidebar ul a {
+			border-top: 1px solid #494F4F;
+			border-bottom: 1px solid #212424;
+			color: #FFFFFF;
+		}
+
+		#documenter_sidebar ul a:hover {
+			background: #333636;
+			color: #00DFFC;
+			border-top: 1px solid #333636;
+		}
+
+		#documenter_sidebar ul a.current {
+			background: #333636;
+			color: #00DFFC;
+			border-top: 1px solid #333636;
+		}
+
+		#documenter_copyright {
+			display: block !important;
+			visibility: visible !important;
+		}
+
+		#documenter_sidebar,
+		#documenter_sidebar ul a {
+			background-color: #000;
+			color: #FFF;
+		}
+
+		#documenter_sidebar #documenter_logo {
+			margin: 50px 40px 0;
+			position: relative;
+		}
+
+		#documenter_sidebar #documenter_logo:hover {
+			text-decoration: none;
+		}
+
+		#documenter_sidebar #documenter_logo img {
+			position: absolute;
+			margin-top: 5px;
+		}
+
+		#documenter_sidebar #documenter_logo div.infor {
+			margin-left: 45px;
+		}
+
+		#documenter_sidebar #documenter_logo div.infor span {
+			display: inline;
+		}
+
+		#documenter_sidebar #documenter_logo div.infor .title {
+			font-size: 22px;
+			color: white;
+		}
+
+		#documenter_sidebar #documenter_logo div.infor .sub-title {
+			font-size: 14px;
+			color: white;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div id="documenter_sidebar">
+		<a href="#documenter_cover" id="documenter_logo">
+			<img src="assets/img/logo.png" alt="" />
+			<div class="infor">
+				<span class="title">
+					Listar <br />
+				</span>
+				<span class="sub-title">
+					Version 1.0.3
+				</span>
+			</div>
+		</a>
+		<ul id="documenter_nav">
+			<li><a class="current" href="#welcome">Welcome</a></li>
+			<li><a class="current" href="#getting-started">Getting Start</a></li>
+			<li><a href="#source-structure">Source Structure</a></li>
+			<li><a href="#theming">Theming</a></li>
+			<li><a href="#faq">FAQ</a></li>
+			<li><a href="#troubleshooting">Troubleshooting</a></li>
+			<li><a href="#sources_and_credits" title="Sources and Credits">Sources and Credits</a></li>
+		</ul>
+		<div id="documenter_copyright">Copyright Moonart 2015<br>
+			made with the <a href="http://rxa.li/documenter">Documenter v1.0</a>
+		</div>
+	</div>
+	<div id="documenter_content">
+		<section id="welcome">
+			<h1>Listar</h1>
+			<h2>React Native directory listing app template</h2>
+			<p>
+				<img src="assets/img/banner.png" alt="" style="max-width: 590px;" />
+			</p>
+			<h4><strong>Welcome To Listar - mobile React Native directory listing app template.</strong></h4>
+			<p>Firstly, a huge thanks for purchasing this template, your support is truly appreciated!
+				<br>
+				<br>
+				This document covers the installation and use of this template and often reveals answers to common
+				problems
+				and issues - read this document thoroughly if you are experiencing any difficulties. If you have any
+				questions that are beyond the scope of this document, feel free to pose them in the dedicated <a
+					href="https://codecanyon.net/user/passionui" target="_blank">support section.</a>
+			</p>
+
+			<h4><strong>Template Features</strong></br></h4>
+
+			<ul class="list">
+				<li>UI/UX design from industry experts</li>
+				<li>20+ Different Screens</li>
+				<li>Home screen</li>
+				<li>Category (block/list)</li>
+				<li>Directory listing with flexible (block/list/grid)</li>
+				<li>Directory listing map view</li>
+				<li>Simple/advance filtering</li>
+				<li>Modern sorting</li>
+				<li>Wishlis</li>
+				<li>Account settings</li>
+				<li>Sign in</li>
+				<li>Sign up</li>
+				<li>Reset password</li>
+				<li>Reviews, Review</li>
+				<li>Feedback</li>
+				<li>Notification message</li>
+				<li>Google map</li>
+				<li>Documentation</li>
+				<li>Free Updates</li>
+				<li>Support Iphone, Iphone X, Ipad, Android multiple devices (32bit & 64bit)</li>
+				<li>Support landscape view mode</li>
+			</ul>
+			<h4><strong>Application Demo</strong></h4>
+			<p>Available download on App Store & Google Play</p>
+			<ul>
+				<li>Android: <a
+						href="https://play.google.com/store/apps/details?id=com.listar">https://play.google.com/store/apps/details?id=com.listar</a>
+				</li>
+
+				<li>IOS: <a
+						href="https://apps.apple.com/us/app/listar-rn/id1482647510">https://apps.apple.com/us/app/listar-rn/id1482647510</a>
+				</li>
+				<li>Account Test: <strong>test/123456</strong></li>
+			</ul>
+			<p>Go ahead to know more.</p>
+		</section>
+		<section id="getting-started">
+			<h3>Getting Start</h3>
+			<h4><strong>1. System Requirements</strong></h4>
+			<h5>NodeJS</h5>
+			Make sure you have a recent version (10.15 or later) of <a href="https://nodejs.org/en/">Node</a> installed
+			globally.
+
+			We recommend installing Node and Watchman using <a href="https://brew.sh/">Homebrew</a>. Run the following
+			commands in a Terminal after installing <a href="https://brew.sh/">Homebrew</a>:
+
+			<pre name="code" class="html">
+			brew install node
+			brew install watchman
+			</pre>
+
+			<h5>React Native Developer Tools</h5>
+			Node comes with npm, which lets you install the React Native command line interface.
+			Run the following command in a Terminal:
+
+			<pre name="code" class="html">
+			npm install -g react-native-cli
+			</pre>
+
+			<h4><strong>2. Installation</strong></h4>
+			<img class=" wp-image-497" src="assets/img/2019-09-15_1010.png" alt="" width="400" />
+			<p>
+				After unzip the download pack, you'll found a <strong>source</strong> folder with all the files.
+				Open a Terminal in <strong>source</strong> folder and run command
+			</p>
+			<h5><strong>IOS</strong></h5>
+			Install node modules
+			<pre name="code" class="html">
+				npm install
+			</pre>
+
+			Install cocoapods
+			<pre name="code" class="html">
+				cd ./ios
+				pod update
+				pod install
+			</pre>
+
+			Link fonts and resource icons
+
+			<pre name="code" class="html">
+				react-native link
+			</pre>
+
+			Start a development server
+			<pre name="code" class="html">
+				npm start
+			</pre>
+
+			<p>
+				Using your <a href="https://developer.apple.com/xcode/">Xcode</a> and open file
+				<code>./source/ios/listar.xcworkspace</code>
+			</p>
+
+			<img src="assets/img/ios-xcode.png" alt="" />
+			<p>
+				1. Select your simulator device <br />
+				2. Build project with simulator and your enjoy your development
+			</p>
+
+			<h5><strong>Android</strong></h5>
+			Install node modules
+
+			<pre name="code" class="html">
+			npm install
+			</pre>
+
+			Link fonts and resource icons
+
+			<pre name="code" class="html">
+			react-native link
+			</pre>
+
+			Start a development server
+
+			<pre name="code" class="html">
+			npm start
+			</pre>
+
+			<p>
+				Using your <a href="https://developer.android.com/studio/">Android Studio</a> (3.5.3 or last version)
+				and
+				build project with folder <code>./source/android</code>
+			</p>
+		</section>
+		<section id="source-structure">
+			<div class="page-header">
+				<h3>Source Structure</h3>
+				<hr class="notop">
+			</div>
+			<img class="alignnone wp-image-197 size-full" src="assets/img/2019-07-14_22-44-38.png" alt="" width="790"
+				height="623" />
+			<h4><strong>Config Files</strong></h4>
+			File locate: <code>./app/config/..</code>
+			<ul>
+				<li>color.js: config theme color for the app</li>
+				<li>images.js: all images use for the app</li>
+				<li>setting.js: common setting value</li>
+				<li>theme.js: common basic StyleSheet</li>
+				<li>typography.js: define common FontFamily, FontWeight, Typography system</li>
+			</ul>
+			<h4><strong>Components</strong></h4>
+			File locate: <code>./app/components/..</code>
+			<br /><br />
+			Common components that could be used many times in your app: Button, Icon, Text, Filter Sort, Text, Start
+			Rating ...
+			<h4><strong>Navigation</strong></h4>
+			File locate: <code>./app/navigation/..</code>
+			<ul>
+				<li>index.js: Define first loading screen</li>
+				<li>main.js: Define default screen &amp; router for link to other screens (Home, Category, Place,
+					Wishlist, Account, Settings, Change Password ...)</li>
+			</ul>
+			<h4><strong>Templates</strong></h4>
+			File locate: <code>./app/screens/..</code>
+			<br /><br />
+			Then navigation has defined in <code>./app/navigation/main.js</code> will link with screens locate in folder
+			<code>./app/screens/..</code>
+			<br /><br />
+			All template design of the app are locate in here (<code>./app/screens/..</code>). You could change or
+			re-structure by matching with your
+			own project structure design.
+			<h4><strong>Assets</strong></h4>
+			File locate: <code>./app/assets/..</code>
+			<p>
+				You can store images or other file resource in this folder
+			</p>
+			<p>Check more how to use multiple language with <a target="_blank"
+					href="https://github.com/AlexanderZaytsev/react-native-i18n"><code>react-native-i18n</code></a></p>
+			<h4><strong>Redux</strong></h4>
+			File locate:
+			<ul>
+				<li><code>./app/store/index.js</code></li>
+				<li><code>./app/actions/..</code></li>
+				<li><code>./app/reducers/..</code></li>
+			</ul>
+			Contain main action and reducers
+			<br /><br />
+			With React Native template, we're not focus much about redux, we just make sample authentication as temp for
+			control simple login screen
+			<h4><strong>Utils</strong></h4>
+			File locate: <code>./app/utils/..</code>
+			<br /><br />
+			Commons function for use in the app will be put here, So if you develop or add more common functions, just
+			add it here !
+		</section>
+		<section id="theming">
+			<div class="page-header">
+				<h3>Theming</h3>
+				<hr class="notop">
+			</div>
+
+			<h4><strong>Font Family</strong></h4>
+			The default font family name "Raleway" are being used for this template. If you need change or a custom font
+			to be the prettiest? You'll need the .ttf files for all supported styles (thin, ultraLight, light, regular,
+			medium, semibold, bold, heavy, black ...). Here are the few steps you need to add it.
+			<br /><br />
+			Add more font family in folder <code>./app/assets/fonts/..</code>
+			<br /><br />
+			Example: Download and add more font Roboto <a href="https://fonts.google.com/specimen/Roboto"
+				target="_blank" rel="noopener noreferrer">[download here]</a>
+			<br /><br />
+			<img class="alignnone wp-image-178 size-full" src="assets/img/2019-07-14_21-19-41.png" alt="" width="309"
+				height="590" />
+			<br /><br />
+			After added new font, open your terminal and run
+
+			<pre name="code" class="html">
+			react-native link
+			</pre>
+
+			Change default font name (You can keep default font and add more prop with new font).
+			Open file <code>./app/config/typography.js</code>
+			<br /><br />
+			<pre name="code" class="javascript">
+				export const FontFamily = {
+					default: "Roboto"
+				};
+			</pre>
+
+			<h3>Color</h3>
+			The template are using color palette following format by image below
+			<br /><br />
+			<img class="alignnone wp-image-144" src="assets/img/Color-Palette.png" alt="" width="700" height="276" />
+			<br /><br />
+			You can change the theme prop dynamically and all the components will automatically update to reflect the
+			new theme.
+			Open file <code>./app/config/color.js</code>
+			<br /><br />
+
+			<pre name="code" class="javascript">
+				export const BaseColor = {
+					primaryColor: "#E5634D", // primary color for your app, usually your brand color.
+					darkPrimaryColor: "#C31C0D", // color is darker base on BaseColor.primaryColor
+					lightPrimaryColor: "#FF8A65", // // color is lighter base on BaseColor.primaryColor
+					accentColor: "#4A90A4", // secondary color for your app which complements the primary color.
+					textPrimaryColor: "#212121", // text color for content.
+					textSecondaryColor: "#E0E0E1", // text color for content.
+					grayColor: "#9B9B9B", // gray color, just common using for app
+					darkBlueColor: "#24253D", // dark blue color, just common using for app
+					dividerColor: "#BDBDBD", // color for separator 
+					whiteColor: "#FFFFFF", // white color
+					fieldColor: "#F5F5F5", // common field color like input, text area
+					yellowColor: "#FDC60A", // just another color use for the app
+					navyBlue: "#3C5A99" // just another color use for the app
+				};
+			</pre>
+
+			The main color palettes following properties:
+			<ul>
+				<li>BaseColor (object)
+					<ul>
+						<li>primaryColor</li>
+						<li>darkPrimaryColor</li>
+						<li>lightPrimaryColor</li>
+						<li>accentColor</li>
+						<li>textPrimaryColor</li>
+						<li>textSecondaryColor</li>
+					</ul>
+				</li>
+			</ul>
+			If you want to customize colors or for matching with your business colors. Just refer more with websites
+			below for pickup right color palettes
+			<ul>
+				<li><a href="https://materialpalette.com" target="_blank"
+						rel="noopener noreferrer">https://materialpalette.com</a></li>
+				<li><a href="https://colorhunt.co" target="_blank" rel="noopener noreferrer">https://colorhunt.co</a>
+				</li>
+			</ul>
+
+			<h4><strong>Typography</strong></h4>
+			To maintain clean and consistent typography your application, we support define main StyleSheet following
+			<code>./app/config/typography.js</code>
+
+			<pre name="code" class="javascript">
+				export const Typography = StyleSheet.create({
+					header: {
+						fontSize: 34,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					title1: {
+						fontSize: 28,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					title2: {
+						fontSize: 22,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					title3: {
+						fontSize: 20,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					headline: {
+						fontSize: 17,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					body1: {
+						fontSize: 17,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					body2: {
+						fontSize: 14,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					callout: {
+						fontSize: 17,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					subhead: {
+						fontSize: 15,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					footnote: {
+						fontSize: 13,
+						fontWeight: FontWeight.regular,
+						fontFamily: FontFamily.default
+					},
+					caption1: {
+						fontSize: 12,
+						fontWeight: FontWeight.regular,
+							fontFamily: FontFamily.default
+						},
+						caption2: {
+							fontSize: 11,
+							fontWeight: FontWeight.regular,
+							fontFamily: FontFamily.default
+						},
+						overline: {
+							fontSize: 10,
+							fontWeight: FontWeight.regular,
+							fontFamily: FontFamily.default
+						}
+					});
+			</pre>
+
+			How to use common StyleSheet for other StyleSheet ?
+
+			<pre name="code" class="javascript">
+				import { BaseColor, Typography, FontWeight } from "@config";
+				export default StyleSheet.create({   
+					textDefault: {
+						...Typography.headline, // Typography > headline 
+						color: BaseColor.whiteColor,
+						fontWeight: FontWeight.semibold
+					}
+				);
+			</pre>
+
+			<h4><strong>FontWeight</strong></h4>
+			To maintain clean and consistent font weight your application, we support define common font weight
+			following <code>./app/config/typography.js</code>
+
+			<pre name="code" class="javascript">
+				export const FontWeight = {
+					thin: "100",
+					ultraLight: "200",
+					light: "300",
+					regular: "400",
+					medium: "500",
+					semibold: "600",
+					bold: "700",
+					heavy: "800",
+					black: "900"
+				};
+			</pre>
+
+			How to use common FontWeight for other StyleSheet ?
+
+			<pre name="code" class="javascript">
+				import { BaseColor, Typography, FontWeight } from "@config";
+				export default StyleSheet.create({   
+					textDefault: {
+						...Typography.headline, 
+						color: BaseColor.whiteColor,
+						fontWeight: FontWeight.semibold // FontWeight > semibold 
+					}
+				);
+			</pre>
+		</section>
+		<section id="faq">
+			<div class="page-header">
+				<h3>Faq</h3>
+				<hr class="notop">
+			</div>
+			<h5><strong>Dose it connect any API ?</strong></h5>
+			<p>No, It dose not. It just included template only. We do not connect any API. You have to develop by
+				yourself
+				for matching with your biz.</p>
+			<h5><strong>Dose it collection user information ?</strong></h5>
+			<p>No, It dose not. The mobile template application just simple application with UI/UX.</p>
+
+			<h5><strong>Dose it use 3rd party for develop UI/UX like React NativeBase, React Native Elements ?</strong>
+			</h5>
+			<p>No, It dose not. It is using pure React Native for develop. If you would like to include React NativeBase
+				or
+				React Native Elements ... You can do that.</p>
+
+			<h5><strong>Can I release the app to both iOS and Android?</strong></h5>
+			<p>
+				Yes, as this is made by React Native framework which support to release for both iOS and Android, please
+				discover more the framework from <a
+					href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank"
+					rel="nofollow noopener noreferrer">https://facebook.github.io/react-native/docs/getting-started.html</a>
+			</p>
+
+			<h5><strong>Will I get the free upgrade on next coming version ?</strong></h5>
+			<p>
+				Yes, you will get the free upgrade with more awesome features coming.
+				You
+				will get the notify email for new version update on stores.
+			</p>
+		</section>
+		<section id="troubleshooting">
+			<div class="page-header">
+				<h3>Troubleshooting</h3>
+				<hr class="notop">
+			</div>
+			<h5>Support Issue Channel on Github</h5>
+			<a href="https://github.com/passionui/support/issues" target="_blank"
+				rel="noopener noreferrer">github.com/passionui/support/issues</a>
+		</section>
+		<section id="sources_and_credits">
+			<div class="page-header">
+				<h3>Sources and Credits</h3>
+				<hr class="notop">
+			</div>
+			We based on pure <a href="https://facebook.github.io/react-native/">React Native</a> for develop travel
+			template app.
+			<br /><br />
+			We have used the following plugins, fonts & images. All fonts, images, icons used in this template are free
+			for commercial use.
+			<h4>Resources</h4>
+			<ul>
+				<li>Images: <a href="http://unsplash.com">unsplash.com</a></li>
+				<li>Icons: <a href="http://iconfinder.com">iconfinder.com</a></li>
+			</ul>
+			<h4>Dependencies</h4>
+			<pre name="code" class="javascript">
+				"@react-native-community/async-storage": "^1.7.1",
+				"@react-native-community/datetimepicker": "^2.2.1",
+				"@react-native-community/masked-view": "^0.1.6",
+				"@react-native-community/viewpager": "^3.3.0",
+				"prop-types": "^15.7.2",
+				"react": "16.9.0",
+				"react-native": "0.61.5",
+				"react-native-animatable": "^1.3.3",
+				"react-native-fast-image": "^7.0.2",
+				"react-native-gesture-handler": "^1.5.6",
+				"react-native-gifted-chat": "^0.13.0",
+				"react-native-maps": "^0.26.1",
+				"react-native-modal": "^11.5.3",
+				"react-native-modal-datetime-picker": "^8.1.2",
+				"react-native-reanimated": "^1.7.0",
+				"react-native-safe-area-context": "^0.7.0",
+				"react-native-screens": "^2.0.0-beta.2",
+				"react-native-splash-screen": "^3.2.0",
+				"react-native-swiper": "^1.6.0-rc.3",
+				"react-native-vector-icons": "^6.6.0",
+				"react-navigation": "^4.1.1",
+				"react-navigation-stack": "^2.1.1",
+				"react-navigation-tabs": "^2.7.0",
+				"react-redux": "^7.1.3",
+				"redux": "^4.0.5",
+				"redux-logger": "^3.0.6",
+				"redux-persist": "^6.0.0",
+				"redux-thunk": "^2.3.0",
+				"rn-range-slider": "^1.3.1"
+			</pre>
+			<br /><br />
+			Once again, thank you so much for purchasing this theme.
+			<br /><br />
+			As I said at the beginning, We'd be glad to help you if you have any questions relating to this theme.
+			<br /><br />
+			I'll do our best to assist.
+			<br /><br />
+			Thanks
+		</section>
+	</div>
+	<script language="javascript" src="assets/js/shCore.js"></script>
+	<script language="javascript" src="assets/js/shBrushCss.js"></script>
+	<script language="javascript" src="assets/js/shBrushXml.js"></script>
+	<script language="javascript" src="assets/js/shBrushJScript.js"></script>
+
+	<style type="text/css" media="screen">
+		p,
+		table,
+		hr,
+		.box {
+			padding-bottom: 15px;
+		}
+
+		.box p {
+			margin-bottom: 10px;
+		}
+
+		pre,
+		code {
+			font-size: 14px;
+			margin: 1.5em 0;
+			white-space: pre;
+		}
+	</style>
+
+
+</body>
+
+</html>
