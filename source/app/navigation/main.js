@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createStackNavigator } from "react-navigation-stack";
 import { BaseColor, BaseStyle } from "@config";
-import { Icon } from "@components";
+import { Icon, Image } from "@components";
 import * as Utils from "@utils";
 import { store } from "app/store";
 
@@ -36,6 +36,7 @@ import PlaceDetail from "@screens/PlaceDetail";
 import ContactUs from "@screens/ContactUs";
 import AboutUs from "@screens/AboutUs";
 import ChooseLocation from "@screens/ChooseLocation";
+import { Images } from "../config/images";
 
 // Transition for navigation by screen name
 const handleCustomTransition = ({ scenes }) => {
@@ -87,10 +88,12 @@ const routeConfigs = {
   Place: {
     screen: Place,
     navigationOptions: ({ navigation }) => ({
-      title: "Place",
+      title: "Mexican",
       tabBarIcon: ({ focused, tintColor }) => {
         return (
-          <Icon solid color={tintColor} name="map-marker-alt" size={20} solid />
+          //  <Icon solid color={tintColor} name="map-marker-alt" size={20} solid />          
+          <Image  source={Images.cat1} style={{ width: 25, height:25 }} tintColor={tintColor} />
+
         );
       }
     })

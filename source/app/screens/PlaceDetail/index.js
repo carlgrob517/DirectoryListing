@@ -23,6 +23,8 @@ import {
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import * as Utils from "@utils";
 import styles from "./styles";
+import * as  API  from '../../config/api';
+
 
 // Load sample data
 import { PlaceListData, ReviewData } from "@data";
@@ -191,7 +193,7 @@ export default class PlaceDetail extends Component {
               })
             }}
           >
-            <Image source={Images.profile2} style={styles.userIcon} />
+            {/* <Image source={Images.profile2} style={styles.userIcon} />
             <View>
               <Text headline semibold whiteColor>
                 Steve Garrett
@@ -199,11 +201,12 @@ export default class PlaceDetail extends Component {
               <Text footnote whiteColor>
                 5 hours ago | 100k views
               </Text>
-            </View>
+            </View> */}
           </Animated.View>
         </Animated.View>
+
         <SafeAreaView style={{ flex: 1 }} forceInset={{ top: "always" }}>
-          {/* Header */}
+                    
           <Header
             title=""
             renderLeft={() => {
@@ -361,6 +364,8 @@ export default class PlaceDetail extends Component {
                 })}
               </View>
             </View>
+
+
             <View style={styles.contentDescription}>
               <Text body2 style={{ lineHeight: 20 }}>
                 Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor
@@ -468,7 +473,7 @@ export default class PlaceDetail extends Component {
               renderItem={({ item, index }) => (
                 <PlaceItem
                   grid
-                  image={item.image}
+                  image={API.URL + item.image}
                   title={item.title}
                   subtitle={item.subtitle}
                   location={item.location}
@@ -505,8 +510,8 @@ export default class PlaceDetail extends Component {
               data={relate}
               keyExtractor={(item, index) => item.id}
               renderItem={({ item, index }) => (
-                <CardList
-                  image={item.image}
+                <CardList                  
+                  image={{uri:API.URL + item.image}}
                   title={item.title}
                   subtitle={item.subtitle}
                   rate={item.rate}
@@ -522,7 +527,9 @@ export default class PlaceDetail extends Component {
               )}
             />
           </ScrollView>
-        </SafeAreaView>
+        </SafeAreaView> 
+
+        
       </View>
     );
   }

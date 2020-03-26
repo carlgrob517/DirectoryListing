@@ -3,48 +3,71 @@ import { View, ScrollView, TextInput } from "react-native";
 import { BaseStyle, BaseColor } from "@config";
 import { Header, SafeAreaView, Icon, Button } from "@components";
 import styles from "./styles";
+import { connect } from "react-redux";
+import { AuthActions } from "@actions";
+import { bindActionCreators } from "redux";
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       email: "",
       address: "",
+      password:"",
       loading: false,
       success: {
         name: true,
         email: true,
-        address: true
+        address: true,
+        password:true,
       }
     };
   }
 
   onSignUp() {
     const { navigation } = this.props;
-    let { name, email, address, success } = this.state;
-
-    if (name == "" || email == "" || address == "") {
+    let { name, email, address, password, success } = this.state;
+    if (name == "" || email == "" || password == "") {      
+      
       this.setState({
         success: {
           ...success,
           name: name != "" ? true : false,
           email: email != "" ? true : false,
-          address: address != "" ? true : false
+          password: password != "" ? true : false
         }
       });
+
     } else {
       this.setState(
         {
           loading: true
         },
         () => {
-          setTimeout(() => {
-            this.setState({
-              loading: false
-            });
-            navigation.navigate("SignIn");
-          }, 500);
+          
+          let credential = {   
+            name:this.state.name,
+            password: this.state.password,
+            email:this.state.email
+          }      
+                             
+          this.props.actions.authentication("register", credential, response => {                        
+            console.log(response.response.id);
+            if ( response.success ) {
+              this.setState({
+                loading: false
+              });
+              navigation.navigate("SignIn");
+            } else {
+              this.setState({
+                loading: false
+              });
+            }
+          });
+
+
+
         }
       );
     }
@@ -52,7 +75,7 @@ export default class SignUp extends Component {
 
   render() {
     const { navigation } = this.props;
-    let { loading, name, email, address, success } = this.state;
+    let { loading, name, email, password, success } = this.state;
     return (
       <SafeAreaView
         style={BaseStyle.safeAreaView}
@@ -98,14 +121,27 @@ export default class SignUp extends Component {
             />
             <TextInput
               style={[BaseStyle.textInput, { marginTop: 10 }]}
-              onChangeText={text => this.setState({ address: text })}
+              onChangeText={text => this.setState({ password: text })}
+              onFocus={() => {
+                this.setState({
+                  success: {
+                    ...this.state.success,
+                    password: true
+                  }
+                });
+              }}
+
               autoCorrect={false}
-              placeholder="Address"
+              placeholder="Password"
               placeholderTextColor={
-                success.address ? BaseColor.grayColor : BaseColor.primaryColor
-              }
-              value={address}
+                success.password
+                  ? BaseColor.grayColor
+                  : BaseColor.primaryColor
+              }                          
+              value={password}
+              secureTextEntry={true}
             />
+
             <View style={{ width: "100%" }}>
               <Button
                 full
@@ -122,3 +158,17 @@ export default class SignUp extends Component {
     );
   }
 }
+
+
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(AuthActions, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+

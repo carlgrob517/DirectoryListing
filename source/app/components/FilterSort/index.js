@@ -57,12 +57,16 @@ export default class FilterSort extends Component {
     const { sortOption } = this.state;
     const { onChangeSort } = this.props;
     const sorted = sortOption.filter(item => item.checked);
+    
+
     if (sorted.length > 0) {
+      
       this.setState({
         sortSelected: sorted[0],
         modalVisible: false
       });
-      onChangeSort(sorted[0]);
+            
+      onChangeSort(sorted[0]);      
     }
   }
 
@@ -189,22 +193,26 @@ FilterSort.defaultProps = {
     {
       value: "low_price",
       icon: "sort-amount-up",
-      text: "Oldest Post"
+      text: "Oldest Post",
+      value:'1'
     },
     {
       value: "hight_price",
       icon: "sort-amount-down",
-      text: "Lastest Post"
+      text: "Lastest Post",
+      value:'2'
     },
     {
       value: "high_rate",
       icon: "sort-amount-up",
-      text: "Review Rating"
+      text: "Review Rating",
+      value:'3'
     },
     {
       value: "popular",
       icon: "sort-amount-down",
-      text: "Most Views"
+      text: "Most Views",
+      value:'4'
     }
   ],
   sortSelected: {

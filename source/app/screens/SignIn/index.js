@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { AuthActions } from "@actions";
 import { bindActionCreators } from "redux";
-import { View, ScrollView, TouchableOpacity, TextInput } from "react-native";
+import { View, ScrollView, TouchableOpacity, TextInput, ToastAndroid } from "react-native";
 import { BaseStyle, BaseColor } from "@config";
 import { Header, SafeAreaView, Icon, Text, Button } from "@components";
 import styles from "./styles";
@@ -11,8 +11,8 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "test",
-      password: "123456",
+      id: "Aa@aa.com",
+      password: "aa",
       loading: false,
       success: {
         id: true,
@@ -24,6 +24,8 @@ class SignIn extends Component {
   onLogin() {
     const { id, password, success } = this.state;
     const { navigation } = this.props;
+    const { dispatch } = this.props;
+
     if (id == "" || password == "") {
       this.setState({
         success: {
@@ -38,15 +40,30 @@ class SignIn extends Component {
           loading: true
         },
         () => {
-          this.props.actions.authentication(true, response => {
-            if (response.success && id == "test" && password == "123456") {
-              navigation.navigate("Profile");
+          let credential = {            
+            password: password,
+            email:id
+          }      
+                             
+          this.props.actions.authentication("login", credential, response => {            
+            console.log("oks");
+            console.log(response.response.id);
+            if ( response.success ) {
+              // this.setState({
+              //   id:response.response.first_name
+              // });
+              navigation.navigate("Home");
             } else {
+
               this.setState({
                 loading: false
               });
+              ToastAndroid.show('Failed', ToastAndroid.SHORT);
+
+
             }
           });
+
         }
       );
     }
@@ -88,7 +105,8 @@ class SignIn extends Component {
                 });
               }}
               autoCorrect={false}
-              placeholder="ID"
+              placeholder="Email"
+              keyboardType="email-address"
               placeholderTextColor={
                 this.state.success.id
                   ? BaseColor.grayColor
@@ -119,6 +137,8 @@ class SignIn extends Component {
               value={this.state.password}
               selectionColor={BaseColor.primaryColor}
             />
+
+            
             <View style={{ width: "100%" }}>
               <Button
                 full
@@ -132,10 +152,11 @@ class SignIn extends Component {
               </Button>
             </View>
             <TouchableOpacity
-              onPress={() => navigation.navigate("ResetPassword")}
+              onPress={() => navigation.navigate("SignUp")}
             >
               <Text body1 grayColor style={{ marginTop: 25 }}>
-                Forgot your password?
+                Create a new user 
+                {/* Forgot your password? */}
               </Text>
             </TouchableOpacity>
           </View>

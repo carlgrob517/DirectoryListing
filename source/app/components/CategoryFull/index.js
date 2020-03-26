@@ -14,16 +14,16 @@ export default class CategoryFull extends Component {
         onPress={onPress}
         activeOpacity={0.9}
       >
-        <Image source={image} style={{ flex: 1, borderRadius: 8 }} />
+        <Image source={{uri:image}} style={{ width:40, height:40,  }} />
         <View style={styles.contentIcon}>
-          <View style={styles.iconCircle}>
+          {/* <View style={styles.iconCircle}>
             <Icon name={icon} size={18} color={BaseColor.whiteColor} />
-          </View>
+          </View> */}
           <View style={{ paddingLeft: 10 }}>
-            <Text headline bold whiteColor>
-              {title}
+            <Text headline bold >
+              {image}
             </Text>
-            <Text body2 bold whiteColor>
+            <Text body2 bold >
               {subtitle}
             </Text>
           </View>

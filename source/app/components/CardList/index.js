@@ -21,7 +21,7 @@ export default class CardList extends Component {
         style={[styles.contain, style]}
         onPress={onPress}
         activeOpacity={0.9}
-      >
+      >        
         <Image source={image} style={styles.image} />
         <View style={{ paddingHorizontal: 10 }}>
           <Text headline semibold>

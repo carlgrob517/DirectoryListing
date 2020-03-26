@@ -38,7 +38,7 @@ export default StyleSheet.create({
   },
   serviceItem: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",    
   },
   serviceCircleIcon: {
     width: 36,

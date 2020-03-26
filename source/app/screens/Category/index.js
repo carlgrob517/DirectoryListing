@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { FlatList, RefreshControl, View, TextInput } from "react-native";
 import { BaseStyle, BaseColor } from "@config";
+import { CategoryAction } from "@actions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
 import {
   Header,
   SafeAreaView,
@@ -11,8 +15,9 @@ import {
 import * as Utils from "@utils";
 import { CategoryData } from "@data";
 import styles from "./styles";
+import api from "../../config/api";
 
-export default class Category extends Component {
+ class Category extends Component {
   constructor(props) {
     super(props);
 
@@ -20,9 +25,29 @@ export default class Category extends Component {
     this.state = {
       refreshing: false,
       search: "",
-      modeView: "full",
+      modeView: "icon",
       category: CategoryData
     };
+
+
+    // initialize category part
+    let credential = {      
+      id: 'aHVycnlyMTI=',      
+    }
+    this.props.actions.categories(credential, response => {            
+      console.log("categories");      
+      if ( response.success ) {
+        this.setState(
+          { category: response.data.categories }
+        );        
+        console.log(response.categories);
+      } else {
+        this.setState({
+          loading: false
+        });
+      }
+    });
+
   }
 
   onChangeView() {
@@ -48,11 +73,11 @@ export default class Category extends Component {
     switch (modeView) {
       case "icon":
         return (
-          <CategoryIcon
-            icon={item.icon}
-            title={item.title}
+          <CategoryIcon            
+            image={api.URL + item.image}
+            title={item.name}
             subtitle={item.subtitle}
-            onPress={() => navigation.navigate(item.screen)}
+            onPress={() => navigation.navigate("Place")}
             style={{
               marginBottom: 10,
               borderBottomWidth: 0.5,
@@ -63,17 +88,31 @@ export default class Category extends Component {
         );
       case "full":
         return (
-          <CategoryFull
-            image={item.image}
-            icon={item.icon}
-            title={item.title}
+          <CategoryIcon            
+            image={api.URL + item.image}
+            title={item.name}
             subtitle={item.subtitle}
-            onPress={() => navigation.navigate(item.screen)}
+            onPress={() => navigation.navigate("Place")}
             style={{
-              marginBottom: 10
+              marginBottom: 10,
+              borderBottomWidth: 0.5,
+              paddingBottom: 10,
+              borderColor: BaseColor.textSecondaryColor
             }}
           />
         );
+
+        // return (
+        //   <CategoryFull
+        //     image={api.URL + item.image}            
+        //     title={item.name}
+        //     subtitle={item.subtitle}
+        //     onPress={() => navigation.navigate(item.screen)}
+        //     style={{
+        //       marginBottom: 10
+        //     }}
+        //   />
+        // );
       default:
         break;
     }
@@ -89,18 +128,18 @@ export default class Category extends Component {
         <Header
           title="Category"
           renderRight={() => {
-            return (
-              <Icon
-                name={modeView == "full" ? "th-large" : "th-list"}
-                size={20}
-                color={BaseColor.grayColor}
-              />
-            );
+            // return (
+            //   <Icon
+            //     name={modeView == "full" ? "th-large" : "th-list"}
+            //     size={20}
+            //     color={BaseColor.grayColor}
+            //   />
+            // );
           }}
           onPressRight={() => this.onChangeView()}
         />
         <View style={{ padding: 20 }}>
-          <TextInput
+          {/* <TextInput
             style={BaseStyle.textInput}
             onChangeText={text => this.setState({ search: text })}
             autoCorrect={false}
@@ -109,8 +148,10 @@ export default class Category extends Component {
             value={search}
             selectionColor={BaseColor.primaryColor}
             onSubmitEditing={() => {}}
-          />
+          /> */}
         </View>
+
+        
         <FlatList
           contentContainerStyle={{
             marginHorizontal: 20
@@ -131,3 +172,17 @@ export default class Category extends Component {
     );
   }
 }
+
+
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(CategoryAction, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);
+

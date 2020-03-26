@@ -15,24 +15,28 @@ import {
   Tag,
   CardList
 } from "@components";
-import { BaseStyle, BaseColor, Images } from "@config";
+import { BaseStyle, BaseColor, Images} from "@config";
 import * as Utils from "@utils";
 import styles from "./styles";
 import Swiper from "react-native-swiper";
-import {
-  HomeServicesData,
+import {  
   HomePopularData,
-  HomeListData,
-  HomeBannerData
+  
 } from "@data";
 
-export default class Home extends Component {
+import { SlideShowAction} from "@actions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as  API  from '../../config/api';
+
+
+class Home extends Component {
   constructor(props) {
     super(props);
 
     // Temp data define
     this.state = {
-      banner: HomeBannerData,
+      banner: [],
       location: [
         { id: "1", name: "Delux Room" },
         { id: "2", name: "Tripple Room" },
@@ -40,12 +44,26 @@ export default class Home extends Component {
         { id: "4", name: "King Room" },
         { id: "5", name: "King Room" }
       ],
-      services: HomeServicesData,
-      popular: HomePopularData,
-      list: HomeListData,
+      popular: HomePopularData,      
       heightHeader: Utils.heightHeader()
     };
     this._deltaY = new Animated.Value(0);
+       
+    this.props.actions.basic("", response => {            
+      console.log("slideshow--- started");      
+      if ( response.success ) {
+        this.setState(
+          { banner: response.data.slideshow, services:response.data.categories, list:response.data.res,  popular:response.data.pop}  
+        );                
+        console.log(response.data.slideshow);
+
+      } else {
+        this.setState({
+          loading: false
+        });
+      }
+    });
+
   }
 
   /**
@@ -73,11 +91,12 @@ export default class Home extends Component {
     });
   }
 
+
   render() {
     const { navigation } = this.props;
     const { banner, services, popular, list, heightHeader } = this.state;
     const heightImageBanner = Utils.scaleWithPixel(225);
-    const marginTopBanner = heightImageBanner - heightHeader - 20;
+    const marginTopBanner = heightImageBanner - heightHeader + 10;
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <Animated.View
@@ -106,12 +125,14 @@ export default class Home extends Component {
             autoplayTimeout={2}
           >
             {banner.map((item, index) => {
-              return (
-                <Image key={item.id} source={item.image} style={{ flex: 1 }} />
+              return (                
+                <Image key={item.id} source={{uri:API.URL + item.image}} style={{ flex: 1 }} />  
               );
             })}
           </Swiper>
         </Animated.View>
+
+
         <SafeAreaView style={{ flex: 1 }} forceInset={{ top: "always" }}>
           <ScrollView
             onScroll={Animated.event([
@@ -128,6 +149,8 @@ export default class Home extends Component {
             }}
             scrollEventThrottle={8}
           >
+
+
             <View style={[styles.searchForm, { marginTop: marginTopBanner }]}>
               <TouchableOpacity
                 onPress={() => navigation.navigate("SearchHistory")}
@@ -143,8 +166,9 @@ export default class Home extends Component {
                   ]}
                 >
                   <Text body1 grayColor style={{ flex: 1 }}>
-                    Search Location
+                    Search Location                   
                   </Text>
+                
                   <View style={styles.lineForm} />
                   <Icon
                     name="location-arrow"
@@ -154,9 +178,12 @@ export default class Home extends Component {
                   />
                 </View>
               </TouchableOpacity>
-              <View style={styles.contentLocation}>
+              
+              {/* <View style={styles.contentLocation}>
                 {this.renderLocation()}
-              </View>
+              </View> */}
+
+              
             </View>
             {/* services */}
             <FlatList
@@ -168,26 +195,24 @@ export default class Home extends Component {
                 return (
                   <TouchableOpacity
                     style={styles.serviceItem}
-                    onPress={() => navigation.navigate(item.route)}
+                    onPress={() => navigation.navigate("Place")}
                   >
                     <View
                       style={[
                         styles.serviceCircleIcon,
-                        { backgroundColor: item.color }
+                        { backgroundColor: BaseColor.textSecondaryColor }
                       ]}
                     >
-                      <Icon
-                        name={item.icon}
-                        size={20}
-                        color={BaseColor.whiteColor}
-                        solid
-                      />
+                      <Image source={{uri:API.URL + item.image}}  style={{ width: 25, height:25 }} />
+
+
                     </View>
                     <Text
                       footnote
                       style={{
                         marginTop: 5,
-                        marginBottom: 20
+                        marginBottom: 20,                        
+                        textAlign:'center'                        
                       }}
                     >
                       {item.name}
@@ -196,13 +221,14 @@ export default class Home extends Component {
                 );
               }}
             />
+
             {/* Hiking */}
             <View style={styles.contentPopular}>
               <Text title3 semibold>
-                Popular Locations
+                Restaurantes populares
               </Text>
               <Text body2 grayColor>
-                Let find out what most interesting things
+                Lugares favoritos, recommendados
               </Text>
             </View>
             <FlatList
@@ -216,11 +242,12 @@ export default class Home extends Component {
                     styles.popularItem,
                     index == 0 ? { marginHorizontal: 20 } : { marginRight: 20 }
                   ]}
-                  image={item.image}
+                  image={  {uri:API.URL + item.img} }
                   onPress={() => navigation.navigate("PlaceDetail")}
                 >
                   <Text headline whiteColor semibold>
-                    {item.name}
+                    {/* {item.title} */}
+                    {item.title}
                   </Text>
                 </Card>
               )}
@@ -243,9 +270,9 @@ export default class Home extends Component {
                 keyExtractor={(item, index) => item.id}
                 renderItem={({ item, index }) => (
                   <CardList
-                    image={item.image}
+                    image={{uri:API.URL + item.img}}
                     title={item.title}
-                    subtitle={item.subtitle}
+                    subtitle={item.phone}
                     rate={item.rate}
                     style={{ marginBottom: 20 }}
                     onPress={() => navigation.navigate("PlaceDetail")}
@@ -259,3 +286,17 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+      actions: bindActionCreators(SlideShowAction, dispatch)    
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+

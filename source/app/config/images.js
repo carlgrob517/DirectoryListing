@@ -5,6 +5,18 @@
 
 export const Images = {
   logo: require("@assets/images/logo.png"),
+  banner1: require("@assets/images/slideshow1.jpg"),
+  banner2: require("@assets/images/slideshow2.jpg"),
+  banner3: require("@assets/images/slideshow3.jpg"),  
+  cat1: require("@assets/images/cat1.png"),  
+  cat2: require("@assets/images/cat2.png"),  
+  cat3: require("@assets/images/cat3.png"),  
+  cat4: require("@assets/images/cat4.png"),  
+  cat5: require("@assets/images/cat5.png"),  
+  cat6: require("@assets/images/cat6.png"),  
+  cat7: require("@assets/images/cat7.png"),  
+  cat8: require("@assets/images/cat8.png"),  
+
   slide: require("@assets/images/slide.png"),
   avata1: require("@assets/images/avata-01.jpeg"),
   avata2: require("@assets/images/avata-02.jpeg"),
@@ -38,9 +50,7 @@ export const Images = {
   room9: require("@assets/images/room-9.jpg"),
   room10: require("@assets/images/room-10.jpg"),
   room11: require("@assets/images/room-11.jpg"),
-  banner1: require("@assets/images/banner-1.jpg"),
-  banner2: require("@assets/images/banner-2.jpg"),
-  banner3: require("@assets/images/banner-3.jpg"),
+  
   category1: require("@assets/images/category-1.jpg"),
   category2: require("@assets/images/category-2.jpg"),
   category3: require("@assets/images/category-3.jpg"),

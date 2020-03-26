@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  FlatList,  
+  FlatList,
   RefreshControl,
   View,
   Animated,
@@ -19,14 +19,11 @@ import {
 } from "@components";
 import styles from "./styles";
 import * as Utils from "@utils";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { ResAction} from "@actions";
-import api from "../../config/api";
-import { toHumanSize } from "i18n-js";
 
+// Load sample data
+import { PlaceListData } from "@data";
 
-class Place extends Component {
+export default class Place extends Component {
   constructor(props) {
     super(props);
     const scrollAnim = new Animated.Value(0);
@@ -34,13 +31,19 @@ class Place extends Component {
 
     this.state = {
       refreshing: false,
-      modeView: "list",
-      mapView: false,     
+      modeView: "block",
+      mapView: false,
+      region: {
+        latitude: PlaceListData[0].region.latitude,
+        longitude: PlaceListData[0].region.longitude,
+        latitudeDelta: 0.009,
+        longitudeDelta: 0.004
+      },
       currentLocation: {
         latitude: null,
         longitude: null
       },
-
+      list: PlaceListData,
       scrollAnim,
       offsetAnim,
       clampedScroll: Animated.diffClamp(
@@ -59,71 +62,9 @@ class Place extends Component {
     this.onChangeView = this.onChangeView.bind(this);
     this.onFilter = this.onFilter.bind(this);
     this.onChangeSort = this.onChangeSort.bind(this);
-
-
-    // init reslists
-    let credential = {      
-      category_id: "6",      
-    }
-
-    this.props.actions.restaurants(credential, response => {            
-      console.log("res success");      
-      if ( response.success ) {
-        this.setState(
-          { 
-            list: response.data.restaurants ,
-            region: {
-              latitude: parseFloat(response.data.restaurants[0].lat),
-              longitude: parseFloat(response.data.restaurants[0].lng),
-              latitudeDelta: 0.009,
-              longitudeDelta: 0.004
-            },
-          }
-        );        
-        
-      } else {
-        this.setState({
-          loading: false
-        });
-      }
-    });
-
   }
 
-
-  onChangeSort(selected) {    
-
-    
-    if(selected.value == 1){          
-      console.log(this.state.list[0].id);
-      const mylist = this.state.list.sort((a, b) => (a.id > b.id) ? -1 : 1)
-      
-      this.setState({
-        list: mylist
-      });
-
-      //this.state.list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    }else if(selected.value == 2){
-      const mylist = this.state.list.sort((a, b) => (a.id > b.id) ? 1 : -1)
-      //this.state.list.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-      this.setState({
-        list: mylist
-      });
-
-
-    }else if(selected.value == 3){
-      const mylist = this.state.list.sort((a, b) => (a.rate > b.rate) ? -1 : 1)      
-      this.setState({
-        list: mylist
-      });
-
-    }else{
-      const mylist = this.state.list.sort((a, b) => (a.rate > b.rate) ? -1 : 1)   
-      this.setState({
-        list: mylist
-      });
-    }
-  }
+  onChangeSort() {}
 
   /**
    * @description Open modal when filterring mode is applied
@@ -170,7 +111,6 @@ class Place extends Component {
   onChangeMapView() {
     const { mapView } = this.state;
     Utils.enableExperimental();
-    console.log("open map view");
     this.setState({
       mapView: !mapView
     });
@@ -180,8 +120,8 @@ class Place extends Component {
     for (let index = 0; index < this.state.list.length; index++) {
       const element = this.state.list[index];
       if (
-        element.lat == location.lat &&
-        element.lng == location.lng
+        element.region.latitude == location.latitude &&
+        element.region.longitude == location.longitude
       ) {
         this.flatListRef.scrollToIndex({
           animated: true,
@@ -242,12 +182,13 @@ class Place extends Component {
               keyExtractor={(item, index) => item.id}
               renderItem={({ item, index }) => (
 
+                                  
                 <PlaceItem
                   block
-                  image={api.URL + item.img}
+                  image={item.image}
                   title={item.title}
                   subtitle={item.subtitle}
-                  location={item.address}
+                  location={item.location}
                   phone={item.phone}
                   rate={item.rate}
                   status={item.status}
@@ -272,14 +213,13 @@ class Place extends Component {
             >
               <FilterSort
                 modeView={modeView}
-                onChangeSort={(selected)=>{this.onChangeSort(selected)}}
+                onChangeSort={this.onChangeSort}
                 onChangeView={this.onChangeView}
                 onFilter={this.onFilter}
               />
             </Animated.View>
           </View>
         );
-
       case "grid":
         return (
           <View style={{ flex: 1 }}>
@@ -320,10 +260,10 @@ class Place extends Component {
               renderItem={({ item, index }) => (
                 <PlaceItem
                   grid
-                  image={api.URL + item.img}
+                  image={item.image}
                   title={item.title}
                   subtitle={item.subtitle}
-                  location={item.address}
+                  location={item.location}
                   phone={item.phone}
                   rate={item.rate}
                   status={item.status}
@@ -353,8 +293,8 @@ class Place extends Component {
               ]}
             >
               <FilterSort
-                modeView={modeView}                
-                onChangeSort={(selected)=>{this.onChangeSort(selected)}}
+                modeView={modeView}
+                onChangeSort={this.onChangeSort}
                 onChangeView={this.onChangeView}
                 onFilter={this.onFilter}
               />
@@ -398,10 +338,10 @@ class Place extends Component {
               renderItem={({ item, index }) => (
                 <PlaceItem
                   list
-                  image={api.URL + item.img}
+                  image={item.image}
                   title={item.title}
                   subtitle={item.subtitle}
-                  location={item.address}
+                  location={item.location}
                   phone={item.phone}
                   rate={item.rate}
                   status={item.status}
@@ -424,8 +364,8 @@ class Place extends Component {
               ]}
             >
               <FilterSort
-                modeView={modeView}                
-                onChangeSort={(selected)=>{this.onChangeSort(selected)}}
+                modeView={modeView}
+                onChangeSort={this.onChangeSort}
                 onChangeView={this.onChangeView}
                 onFilter={this.onFilter}
               />
@@ -467,10 +407,10 @@ class Place extends Component {
               renderItem={({ item, index }) => (
                 <PlaceItem
                   block
-                  image={api.URL + item.img}
+                  image={item.image}
                   title={item.title}
                   subtitle={item.subtitle}
-                  location={item.address}
+                  location={item.location}
                   phone={item.phone}
                   rate={item.rate}
                   status={item.status}
@@ -578,15 +518,15 @@ class Place extends Component {
                 region: {
                   latitudeDelta: 0.009,
                   longitudeDelta: 0.004,
-                  latitude: list[index] && list[index].lat,
-                  longitude: list[index] && list[index].lng
+                  latitude: list[index] && list[index].region.latitude,
+                  longitude: list[index] && list[index].region.longitude
                 }
               });
             }}
             keyExtractor={(item, index) => item.id}
             renderItem={({ item, index }) => (
               <CardList
-                image={{uri:api.URL +  item.img}}
+                image={item.image}
                 title={item.title}
                 subtitle={item.subtitle}
                 rate={item.rate}
@@ -627,7 +567,7 @@ class Place extends Component {
         forceInset={{ top: "always" }}
       >
         <Header
-          title="Mexicana"
+          title="Place"
           renderRight={() => {
             return (
               <Icon
@@ -637,7 +577,6 @@ class Place extends Component {
               />
             );
           }}
-          
           renderRightSecond={() => {
             return (
               <Icon name="search" size={24} color={BaseColor.primaryColor} />
@@ -653,25 +592,8 @@ class Place extends Component {
             this.onChangeMapView();
           }}
         />
-
         {mapView ? this.renderMapView() : this.renderList()}
       </SafeAreaView>
     );
   }
 }
-
-
-const mapStateToProps = state => {
-  return {};
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-      actions: bindActionCreators(ResAction, dispatch)    
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Place);
-
-
-

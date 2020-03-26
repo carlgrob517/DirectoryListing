@@ -31,16 +31,21 @@ export default class PlaceItem extends Component {
     return (
       <View style={style}>
         <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-          <Image source={image} style={styles.blockImage} />
-          <Tag status style={styles.tagStatus}>
+
+          <Image source={{uri:image}} style={styles.blockImage} />
+    
+          {/* <Tag status style={styles.tagStatus}>
             {status}
-          </Tag>
+          </Tag> */}
+
+          
           <Icon
             name="heart"
             color={BaseColor.whiteColor}
             size={24}
             style={styles.iconLike}
           />
+
           <View style={styles.blockContentRate}>
             <View
               style={{
@@ -66,7 +71,7 @@ export default class PlaceItem extends Component {
               </View>
             </View>
             <Text caption1 semibold whiteColor style={{ marginTop: 5 }}>
-              {numReviews} Reviews
+              {/* {numReviews} Reviews */}
             </Text>
           </View>
         </TouchableOpacity>
@@ -129,10 +134,12 @@ export default class PlaceItem extends Component {
     return (
       <View style={[styles.listContent, style]}>
         <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-          <Image source={image} style={styles.listImage} />
-          <Tag status style={styles.listTagStatus}>
+          <Image source={{uri:image}} style={styles.listImage} />
+          
+          {/* <Tag status style={styles.listTagStatus}>
             {status}
           </Tag>
+           */}
         </TouchableOpacity>
         <View style={styles.listContentRight}>
           <Text headline semibold grayColor>
@@ -189,16 +196,18 @@ export default class PlaceItem extends Component {
     return (
       <View style={[styles.girdContent, style]}>
         <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-          <Image source={image} style={styles.girdImage} />
-          <Tag status style={styles.tagGirdStatus}>
+          <Image source={{uri:image}} style={styles.girdImage} />
+          {/* <Tag status style={styles.tagGirdStatus}>
             {status}
-          </Tag>
+          </Tag> */}
+          
           <Icon
             name="heart"
             color={BaseColor.whiteColor}
             size={18}
             style={styles.iconGirdLike}
           />
+          
         </TouchableOpacity>
         <Text footnote semibold grayColor style={{ marginTop: 5 }}>
           {subtitle}

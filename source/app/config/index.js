@@ -9,6 +9,9 @@ import { Typography, FontWeight, FontFamily } from "./typography";
 import { BaseSetting } from "./setting";
 import { Images } from "./images";
 import { BaseStyle } from "./theme";
+import { API } from "./api";
+
+
 
 export {
   BaseColor,
@@ -21,5 +24,6 @@ export {
   FontFamily,
   BaseSetting,
   Images,
-  BaseStyle
+  BaseStyle,
+  API
 };

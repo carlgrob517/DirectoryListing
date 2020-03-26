@@ -11,5 +11,4 @@ const AppNavigator = createSwitchNavigator(
     initialRouteName: "Loading"
   }
 );
-
 export default createAppContainer(AppNavigator);
